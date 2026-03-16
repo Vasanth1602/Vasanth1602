@@ -24,7 +24,7 @@ My work sits at the intersection of **infrastructure as code**, **CI/CD automati
 🏗️  Currently working on   →  ECS Fargate + Terraform IaC for ML Deployment Platform
 ☁️  Cloud focus             →  AWS (EC2, ECS Fargate, ALB, RDS, Secrets Manager, ECR)
 🔧  Automation passion      →  Replacing manual workflows with repeatable pipelines
-📚  Learning                →  Advanced Terraform modules, GitHub Actions, Kubernetes
+📚  Learning                →  Terraform modules, GitHub Actions
 📍  Based in               →  Tamil Nadu, India
 ```
 
