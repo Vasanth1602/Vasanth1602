@@ -72,9 +72,7 @@ A self-service MLOps platform that eliminates manual server configuration. Enter
 - **Dual deployment targets** — EC2 (SSH-based) + ECS Fargate (serverless containers)
 - **Infrastructure as Code** — full Terraform modules for VPC, ALB, ECS cluster, RDS, ECR, Cloud Map
 - **Production networking** — Multi-AZ VPC · Public/private subnets · ALB with path-based routing
-- **Service discovery** — AWS Cloud Map + ECS Service Connect (`backend.local:5000`)
 - **Secure by design** — Secrets Manager, IAM least-privilege, no static credentials
-- **CI/CD pipeline** — 8-step pipeline: build → ECR push (commit SHA tag) → task definition update → rolling ECS deploy
 - **Full stack** — Flask/Gunicorn · React 19/Vite · PostgreSQL 16 · SQLAlchemy + Alembic
 - **Observability** — Real-time WebSocket deployment logs · JWT-secured API · Rate limiting
 
