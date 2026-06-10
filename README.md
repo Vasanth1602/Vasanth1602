@@ -82,7 +82,7 @@ A self-service MLOps platform that eliminates manual server configuration.Enter 
 - Real-time WebSocket deployment logs streamed to React dashboard
 - JWT-secured REST API · SQLAlchemy + Alembic migrations · automatic EC2 cleanup on pipeline failure
 
-> ⚡ Reduces a 30-minute manual EC2 setup to under 5 minutes — fully automated end to end**
+> ⚡ Reduces a 30-minute manual EC2 setup to under 5 minutes — fully automated end to end
 
 [![Repo](https://img.shields.io/badge/View%20Repo-181717?style=for-the-badge&logo=github)](https://github.com/Vasanth1602/ML-Deployment-Platform)
 [![Python](https://img.shields.io/badge/Python-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
