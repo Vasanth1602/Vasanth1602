@@ -64,19 +64,25 @@ My work sits at the intersection of **infrastructure as code**, **CI/CD automati
 <td width="100%" valign="top">
 
 ### 🚀 ML Deployment Platform
-**One-click ML deployment from GitHub URL to production AWS infrastructure**
+**One-click ML model deployment from GitHub URL to live AWS infrastructure**
 
-A self-service MLOps platform that eliminates manual server configuration. Enter a GitHub repo URL — the platform provisions EC2, installs Docker, configures NGINX, builds your image, and streams real-time deployment logs to a React dashboard via WebSocket.
+A self-service MLOps platform that eliminates manual server configuration.Enter a GitHub repo URL — the platform provisions an EC2 instance, installs Docker, configures NGINX as a reverse proxy, builds the Docker image, and streams real-time deployment progress to a React dashboard via WebSocket.
 
-**Architecture highlights:**
-- **Dual deployment targets** — EC2 (SSH-based) + ECS Fargate (serverless containers)
-- **Infrastructure as Code** — full Terraform modules for VPC, ALB, ECS cluster, RDS, ECR, Cloud Map
-- **Production networking** — Multi-AZ VPC · Public/private subnets · ALB with path-based routing
-- **Secure by design** — Secrets Manager, IAM least-privilege, no static credentials
-- **Full stack** — Flask/Gunicorn · React 19/Vite · PostgreSQL 16 · SQLAlchemy + Alembic
-- **Observability** — Real-time WebSocket deployment logs · JWT-secured API · Rate limiting
+**Platform Infrastructure (Terraform IaC — 10 modules):**
+- **Networking** — Custom VPC · Multi-AZ public/private/DB subnets · NAT Gateway
+- **Compute** — ECS Fargate (Flask backend, serverless) · ECR (private container registry) · EC2 (ML app deployment target)
+- **Frontend** — React SPA on S3 + CloudFront (global CDN, free HTTPS)
+- **Traffic** — ALB with path-based routing (/api/* and /socket.io/* → ECS backend) + session stickiness for WebSocket continuity
+- **Data** — RDS PostgreSQL 16 in isolated DB subnets
+- **Security** — Layered security groups · IAM least-privilege · CloudFront origin restriction on ALB · no static credentials anywhere
+- **Secrets** — AWS Secrets Manager for DB credentials, JWT secrets, and SSH keys — injected at ECS runtime via task definition
 
-> ⚡ Reduces a 30-minute manual EC2 setup to a single API call in **3–5 minutes**
+**Application Pipeline (boto3 + Paramiko):**
+- 13-step automated pipeline: EC2 provisioning → SSH → Docker install → git clone → image build → container run → NGINX config → health check
+- Real-time WebSocket deployment logs streamed to React dashboard
+- JWT-secured REST API · SQLAlchemy + Alembic migrations · automatic EC2 cleanup on pipeline failure
+
+> ⚡ Reduces a 30-minute manual EC2 setup to under 5 minutes — fully automated end to end**
 
 [![Repo](https://img.shields.io/badge/View%20Repo-181717?style=for-the-badge&logo=github)](https://github.com/Vasanth1602/ML-Deployment-Platform)
 [![Python](https://img.shields.io/badge/Python-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
