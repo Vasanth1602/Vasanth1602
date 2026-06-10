@@ -141,34 +141,6 @@ A background Windows service that detects the active Wi-Fi SSID and automaticall
 
 ---
 
-## AWS Architecture — ML Deployment Platform (ECS Fargate)
-
-```
-                        Internet
-                            │ HTTP :80
-              ┌─────────────▼──────────────┐
-              │   Application Load Balancer │   internet-facing · public subnets · 2 AZs
-              │   Rule 1:  /api/*      ───► btg (backend :5000)
-              │   Rule 2:  /socket.io/*───► btg (backend :5000)
-              │   Default: /          ───► ftg (frontend :80)
-              └──────────┬─────────────────┘
-                         │             private subnets
-          ┌──────────────┘──────────────────────┐
-          ▼                                      ▼
-  ┌───────────────┐   Cloud Map / Service    ┌──────────────────┐
-  │  Frontend ECS │   Connect                │   Backend ECS    │
-  │  Nginx :80    │◄─ backend.local:5000 ───►│  Flask/Gunicorn  │
-  │  (ftg)        │                          │  :5000  (btg)    │
-  └───────────────┘                          └────────┬─────────┘
-                                                      │ :5432
-                                             ┌────────▼─────────┐
-                                             │  RDS PostgreSQL   │
-                                             │  DB subnet group  │
-                                             └──────────────────┘
-```
-
----
-
 ## GitHub Stats
 
 <div align="center">
