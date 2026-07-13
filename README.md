@@ -138,16 +138,19 @@ Instead of building disconnected mini-projects, VoteSecure takes a single full-s
 **Completed phases:**
 - **Phase 1 — Containerization** ✅ — Dockerized frontend + backend, Compose orchestration, health-check-gated startup, persistent volumes
 - **Phase 2 — Reverse Proxy** ✅ — NGINX as the single public entry point, WebSocket-aware routing for Socket.io, backend never exposed to the host
-- **Phase 3 — CI** ✅ — GitHub Actions, 5-stage fail-fast pipeline (lint → frontend validation → backend build → frontend build → smoke test), PR-gated merges to `main`
+- **Phase 3 — Continuous Integration** ✅ — GitHub Actions 5-stage fail-fast pipeline (lint → frontend validation → backend image build → frontend image build → full-stack smoke test), validating pushes and pull requests to `main`
 
 **Real incidents, documented like production postmortems:**
-- `INC-001` — PostgreSQL container outage (Docker DNS vs. TCP connectivity)
-- `INC-002` — Service discovery failure (`localhost` vs. Docker internal DNS)
-- `INC-003` — NGINX WebSocket upgrade failure (silent fallback to long-polling)
 
-> 💡 The learning driving this project: **availability doesn't guarantee functionality.** All three incidents passed basic health checks while the actual feature underneath was broken — that gap is what the incident reports exist to close.
+Six intentional failure simulations across Docker, NGINX, and GitHub Actions — covering dependency outages, service discovery, WebSocket degradation, broken builds, invalid runtime secrets, and a CI workflow that never triggered.
 
-**Up next:** CI failure simulations → AWS deployment → monitoring & observability (Prometheus/Grafana) → container registry & CD → Kubernetes.
+Each report includes the symptom, investigation, root cause, fix, verification, and the monitoring gap it exposed.
+
+[Read all six incident reports →](https://github.com/Vasanth1602/votesecure-devops-journey/tree/main/docs/incidents)
+
+> 💡 The central lesson so far: **a green health check or successful build does not prove the system works.** Failures can exist in dependencies, network routing, runtime configuration, WebSocket upgrades, and even the CI trigger itself.
+
+**Up next:** AWS deployment → monitoring & observability (Prometheus/Grafana) → container registry & CD → Kubernetes.
 
 Following the build-in-public series on [LinkedIn](https://linkedin.com/in/vasanth1602).
 
